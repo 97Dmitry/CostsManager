@@ -36,23 +36,8 @@ export default {
       ],
     };
   },
-  created() {
-    // this.links();
-  },
-  methods: {
-    // links() {
-    //   this.Links = [
-    //     {title: 'Счет', toGo: '/', exact: true},
-    //     {title: 'История', toGo: '/history'},
-    //     {title: 'Планирование', toGo: '/planning'},
-    //     {title: 'Новая запись', toGo: '/record'},
-    //     {title: 'Категории', toGo: '/categories'},
-    //   ]
-    // },
-    log() {
-      console.log(this.value);
-    },
-  },
+  created() {},
+  methods: {},
 };
 </script>
 
