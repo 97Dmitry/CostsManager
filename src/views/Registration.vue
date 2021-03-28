@@ -49,7 +49,7 @@
       </div>
       <p>
         <label>
-          <input type="checkbox" />
+          <input type="checkbox" v-on:click="agree = !agree" v-model="agree" />
           <span>С правилами согласен</span>
         </label>
       </p>
@@ -84,13 +84,15 @@ export default {
       email: "",
       password: "",
       name: "",
+      agree: false,
     };
   },
   validations() {
     return {
       email: { required, email },
-      password: { required, minLength: minLength(6) },
+      password: { required, minLength: minLength(12) },
       name: { required, minLength: minLength(4) },
+      agree: { checked: (v) => v },
     };
   },
   methods: {
@@ -99,6 +101,15 @@ export default {
       if (this.v$.$error) {
         return;
       }
+
+      const formData = {
+        email: this.email,
+        password: this.password,
+        name: this.name,
+      };
+
+      console.log(formData);
+
       this.$router.push({ name: "Home" });
     },
 
@@ -108,7 +119,12 @@ export default {
       } else if ($name === "email") {
         return "Введите корректный email";
       } else if ($name === "minLength") {
-        return "Минимальная длина должна быть " + $param.min + " символов";
+        return (
+          "Минимальная длина должна быть " +
+          $param.min +
+          " символов, а сейчас: " +
+          this.password.length
+        );
       }
     },
   },

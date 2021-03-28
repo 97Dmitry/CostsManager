@@ -45,17 +45,18 @@ export default {
       date: new Date(),
       interval: null,
       dropdown: null,
-    }
+    };
   },
   created() {},
   methods: {
     logout() {
-      this.$router.push({ path: "/login", query: { massage: "logout" } });
+      this.$router.push({ path: "/login", query: { message: "logout" } });
     },
   },
   mounted() {
     this.interval = setInterval(() => {
-      this.date = new Date().toLocaleTimeString() + " " + new Date().toLocaleDateString();
+      this.date =
+        new Date().toLocaleTimeString() + " " + new Date().toLocaleDateString();
     }, 1000);
     this.dropdawn = M.Dropdown.init(this.$refs.dropdown, {
       constrainWidth: true,
