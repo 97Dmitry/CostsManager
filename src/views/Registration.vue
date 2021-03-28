@@ -90,13 +90,13 @@ export default {
   validations() {
     return {
       email: { required, email },
-      password: { required, minLength: minLength(12) },
+      password: { required, minLength: minLength(6) },
       name: { required, minLength: minLength(4) },
       agree: { checked: (v) => v },
     };
   },
   methods: {
-    submitHandler() {
+    async submitHandler() {
       this.v$.$touch();
       if (this.v$.$error) {
         return;
@@ -108,9 +108,10 @@ export default {
         name: this.name,
       };
 
-      console.log(formData);
-
-      this.$router.push({ name: "Home" });
+      try {
+        await this.$store.dispatch("registration", formData);
+        this.$router.push({ name: "Home" });
+      } catch (e) {}
     },
 
     printError($name, $param) {

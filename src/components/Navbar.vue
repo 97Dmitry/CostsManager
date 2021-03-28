@@ -11,6 +11,7 @@
         <li>
           <a
             class="dropdown-trigger black-text"
+            id="dropdowner"
             href="#"
             data-target="dropdown"
             ref="dropdown"
@@ -49,8 +50,9 @@ export default {
   },
   created() {},
   methods: {
-    logout() {
-      this.$router.push({ path: "/login", query: { message: "logout" } });
+    async logout() {
+      await this.$store.dispatch("logout");
+      this.$router.push({ name: "Login", query: { message: "logout" } });
     },
   },
   mounted() {

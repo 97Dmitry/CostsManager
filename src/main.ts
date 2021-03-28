@@ -1,9 +1,29 @@
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import firebase from "firebase/app";
 import { createApp } from "vue";
 import messagePlugin from "@/utils/message.plugin.js";
 import "materialize-css/dist/js/materialize.min";
 import "./registerServiceWorker";
+import "firebase/auth";
+import "firebase/database";
 
-createApp(App).use(store).use(router).use(messagePlugin).mount("#app");
+const firebaseConfig = {
+  apiKey: process.env.VUE_APP_API_KEY,
+  authDomain: process.env.VUE_APP_AUTH_DOMAIN,
+  projectId: process.env.VUE_APP_PROJECT_ID,
+  storageBucket: process.env.VUE_APP_STORAGE_BUCKER,
+  messagingSenderId: process.env.VUE_APP_MESSAGING_SENDE_ID,
+  appId: process.env.VUE_APP_APP_ID,
+  measurementId: process.env.VUE_APP_MEASUREMENT_ID,
+};
+
+firebase.initializeApp(firebaseConfig);
+
+let app;
+firebase.auth().onAuthStateChanged(() => {
+  if (!app) {
+    createApp(App).use(store).use(router).use(messagePlugin).mount("#app");
+  }
+});

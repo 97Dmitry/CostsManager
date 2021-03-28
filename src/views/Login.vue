@@ -69,12 +69,20 @@ export default {
   },
 
   methods: {
-    submitHandler() {
+    async submitHandler() {
       this.v$.$touch();
       if (this.v$.$error) {
         return;
       }
-      this.$router.push({ name: "Home" });
+
+      const formData = {
+        email: this.email,
+        password: this.password,
+      };
+      try {
+        await this.$store.dispatch("login", formData);
+        this.$router.push({ name: "Home" });
+      } catch (e) {}
     },
 
     printError($name, $param) {
