@@ -4,10 +4,16 @@ import store from "./store";
 import firebase from "firebase/app";
 import { createApp } from "vue";
 import messagePlugin from "@/utils/message.plugin.js";
+import Loader from "@/components/app/Loader.vue";
+import parseDatePlugin from "@/utils/parseDate.plugin"
 import "materialize-css/dist/js/materialize.min";
 import "./registerServiceWorker";
 import "firebase/auth";
 import "firebase/database";
+
+
+
+
 
 const firebaseConfig = {
   apiKey: process.env.VUE_APP_API_KEY,
@@ -24,6 +30,12 @@ firebase.initializeApp(firebaseConfig);
 let app;
 firebase.auth().onAuthStateChanged(() => {
   if (!app) {
-    createApp(App).use(store).use(router).use(messagePlugin).mount("#app");
+    app = createApp(App)
+    app.use(store)
+    app.use(router)
+    app.mount("#app")
+    app.component('Loader', Loader )
+    app.use(messagePlugin)
+    app.use(parseDatePlugin)
   }
 });

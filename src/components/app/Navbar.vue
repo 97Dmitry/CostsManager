@@ -10,13 +10,13 @@
       <ul class="right hide-on-small-and-down">
         <li>
           <a
-            class="dropdown-trigger black-text"
-            id="dropdowner"
-            href="#"
-            data-target="dropdown"
-            ref="dropdown"
+              class="dropdown-trigger black-text"
+              id="dropdown1"
+              href="#"
+              data-target="dropdown"
+              ref="dropdown"
           >
-            USER NAME
+            {{ name }}
             <i class="material-icons right">arrow_drop_down</i>
           </a>
           <ul id="dropdown" class="dropdown-content">
@@ -25,7 +25,7 @@
                 <i class="material-icons">account_circle</i>Профиль
               </router-link>
             </li>
-            <li class="divider" tabindex="-1"></li>
+            <!--            <li class="divider" tabindex="-1"></li>-->
             <li>
               <a href="#" class="black-text" v-on:click.prevent="logout()">
                 <i class="material-icons">assignment_return</i>Выйти
@@ -41,6 +41,7 @@
 <script>
 export default {
   name: "Navbar",
+
   data() {
     return {
       date: new Date(),
@@ -48,25 +49,36 @@ export default {
       dropdown: null,
     };
   },
-  created() {},
+
+  created() {
+  },
+
   methods: {
     async logout() {
       await this.$store.dispatch("logout");
-      this.$router.push({ name: "Login", query: { message: "logout" } });
+      this.$router.push({name: "Login", query: {message: "logout"}});
     },
   },
+
+  computed: {
+    name() {
+      return this.$store.getters.info.name
+    }
+  },
+
   mounted() {
     this.interval = setInterval(() => {
       this.date =
-        new Date().toLocaleTimeString() + " " + new Date().toLocaleDateString();
+          new Date().toLocaleTimeString() + " " + new Date().toLocaleDateString();
     }, 1000);
-    this.dropdawn = M.Dropdown.init(this.$refs.dropdown, {
+    this.dropdown = M.Dropdown.init(this.$refs.dropdown, {
       constrainWidth: true,
     });
   },
-  beforeDestroy() {
+
+  beforeUnmount() {
     clearInterval(this.interval);
-    if (this.dropdawn && this.dropdown.destroy) {
+    if (this.dropdown && this.dropdown.destroy()) {
       this.dropdown.destroy();
     }
   },

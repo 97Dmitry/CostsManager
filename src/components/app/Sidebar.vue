@@ -29,10 +29,10 @@ export default {
     return {
       Links: [
         { title: "Счет", toGo: "/", exact: true },
-        { title: "История", toGo: "/history" },
-        { title: "Планирование", toGo: "/planning" },
-        { title: "Новая запись", toGo: "/record" },
-        { title: "Категории", toGo: "/categories" },
+        { title: "История", toGo: "history", exact: true },
+        { title: "Планирование", toGo: "planning", exact: true },
+        { title: "Новая запись", toGo: "record", exact: true },
+        { title: "Категории", toGo: "categories", exact: true },
       ],
     };
   },
