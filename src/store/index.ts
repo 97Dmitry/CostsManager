@@ -8,7 +8,7 @@ export default createStore({
     error: null,
   },
   mutations: {
-    serError(state, error) {
+    setError(state, error) {
       state.error = error;
     },
     clearError(state) {

@@ -3,20 +3,21 @@
     <div class="page-title">
       <h3>Счет</h3>
 
-      <button class="btn waves-effect waves-light btn-small" v-on:click="refresh">
+      <button
+        class="btn waves-effect waves-light btn-small"
+        v-on:click="refresh"
+      >
         <i class="material-icons">refresh</i>
       </button>
     </div>
-    <Loader v-if="loading"/>
+    <Loader v-if="loading" />
     <div v-else class="row">
-      <HomeBill
-          v-model:rates="currency.Valute"
-      />
+      <HomeBill v-model:rates="currency.Valute" />
 
       <HomeCurrency
-          v-model:rates="currency.Valute" :date="currency.Timestamp"
+        v-model:rates="currency.Valute"
+        :date="currency.Timestamp"
       />
-
     </div>
   </div>
 </template>
@@ -29,25 +30,25 @@ export default {
   name: "Home",
   components: {
     HomeBill,
-    HomeCurrency
+    HomeCurrency,
   },
   data() {
     return {
       loading: true,
-      currency: null
-    }
+      currency: null,
+    };
   },
   async mounted() {
-    this.currency = await this.$store.dispatch('fetchCurrency')
-    this.loading = false
+    this.currency = await this.$store.dispatch("fetchCurrency");
+    this.loading = false;
   },
   methods: {
-   async refresh() {
-     this.loading = false
-     this.currency = await this.$store.dispatch('fetchCurrency')
-     this.loading = false
-   }
-  }
+    async refresh() {
+      this.loading = true;
+      this.currency = await this.$store.dispatch("fetchCurrency");
+      this.loading = false;
+    },
+  },
 };
 </script>
 

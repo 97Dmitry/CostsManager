@@ -1,25 +1,24 @@
 <template>
-  <div class="col s12 m6" s>
+  <div class="col s12 m4" style="margin-right: 60px; padding: 0">
     <div>
       <div class="page-subtitle">
         <h4>Создать</h4>
       </div>
 
-      <form v-on:submit.prevent="submitHandler()">
+      <form @submit.prevent="submitHandler">
         <div class="input-field">
           <input
             id="name"
             type="text"
-            v-model.trim="title"
+            v-model="title"
             :class="{ invalid: v$.title.$error }"
           />
           <label for="name">Название</label>
           <span
-            class="helper-text invalid"
             v-for="(error, index) of v$.title.$errors"
+            class="helper-text invalid"
           >
             {{ printError(error.$validator, error.$params) }}
-            >
           </span>
         </div>
 
@@ -32,8 +31,8 @@
           />
           <label for="limit">Лимит</label>
           <span
-            class="helper-text invalid"
             v-for="(error, index) of v$.limit.$errors"
+            class="helper-text invalid"
           >
             {{ printError(error.$validator, error.$params) }}
           </span>
@@ -50,24 +49,20 @@
 
 <script>
 import useVuelidate from "@vuelidate/core";
-import { required, minLength, email } from "@vuelidate/validators";
+import { minLength, required } from "@vuelidate/validators";
 
 export default {
-  name: "CategoryAdd",
+  name: "CategoryCreate",
   setup() {
     return { v$: useVuelidate() };
   },
-  data() {
-    return {
-      title: "",
-      limit: 1,
-    };
-  },
-  validations() {
-    return {
-      title: { required, minLength: minLength(3) },
-      limit: { required, minLength: minLength(3) },
-    };
+  data: () => ({
+    title: "",
+    limit: 100,
+  }),
+  validations: {
+    title: { required, minLength: minLength(3) },
+    limit: { required, minLength: minLength(3) },
   },
   mounted() {
     M.updateTextFields();
@@ -79,21 +74,18 @@ export default {
         return;
       }
 
-      const formData = {
-        title: this.title,
-        limit: this.limit,
-      };
-
       try {
-        const category = await this.$store.dispatch("categoryAdd", formData);
+        const category = await this.$store.dispatch("createCategory", {
+          title: this.title,
+          limit: this.limit,
+        });
         this.title = "";
-        this.limit = 1;
+        this.limit = 100;
         this.v$.$reset();
-        this.$message("Категория создана");
+        this.$message("Категория была создана");
         this.$emit("created", category);
       } catch (e) {}
     },
-
     printError($name, $param) {
       if ($name === "required") {
         return "Поле не должно быть пустым";
@@ -104,5 +96,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>
