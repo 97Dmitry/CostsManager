@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import auth from "./auth";
 import info from "./info";
+import category from "./category";
 
 export default createStore({
   state: {
@@ -19,12 +20,13 @@ export default createStore({
   },
   actions: {
     async fetchCurrency() {
-      const res = await fetch(`https://www.cbr-xml-daily.ru/daily_json.js`)
-      return await res.json()
-    }
+      const res = await fetch(`https://www.cbr-xml-daily.ru/daily_json.js`);
+      return await res.json();
+    },
   },
   modules: {
     auth,
-    info
+    info,
+    category,
   },
 });
