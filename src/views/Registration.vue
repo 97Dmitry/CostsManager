@@ -4,52 +4,52 @@
       <span class="card-title">Домашняя бухгалтерия</span>
       <div class="input-field">
         <input
-          id="email"
-          type="text"
-          v-model.trim="email"
-          :class="{ invalid: v$.email.$error }"
+            id="email"
+            type="text"
+            v-model.trim="email"
+            :class="{ invalid: v$.email.$error }"
         />
         <label for="email">Email</label>
         <small
-          class="helper-text invalid"
-          v-for="(error, index) of v$.email.$errors"
+            class="helper-text invalid"
+            v-for="(error, index) of v$.email.$errors"
         >
           {{ printError(error.$validator, error.$params) }}
         </small>
       </div>
       <div class="input-field">
         <input
-          id="password"
-          type="password"
-          v-model="password"
-          :class="{ invalid: v$.password.$error }"
+            id="password"
+            type="password"
+            v-model="password"
+            :class="{ invalid: v$.password.$error }"
         />
         <label for="password">Пароль</label>
         <small
-          class="helper-text invalid"
-          v-for="(error, index) of v$.password.$errors"
+            class="helper-text invalid"
+            v-for="(error, index) of v$.password.$errors"
         >
           {{ printError(error.$validator, error.$params) }}
         </small>
       </div>
       <div class="input-field">
         <input
-          id="name"
-          type="text"
-          v-model.trim="name"
-          :class="{ invalid: v$.name.$error }"
+            id="name"
+            type="text"
+            v-model.trim="name"
+            :class="{ invalid: v$.name.$error }"
         />
         <label for="name">Имя</label>
         <small
-          class="helper-text invalid"
-          v-for="(error, index) of v$.name.$errors"
+            class="helper-text invalid"
+            v-for="(error, index) of v$.name.$errors"
         >
           {{ printError(error.$validator, error.$params) }}
         </small>
       </div>
       <p>
         <label>
-          <input type="checkbox" v-on:click="agree = !agree" v-model="agree" />
+          <input type="checkbox" v-on:click="agree = !agree" v-model="agree"/>
           <span>С правилами согласен</span>
         </label>
       </p>
@@ -72,12 +72,12 @@
 
 <script>
 import useVuelidate from "@vuelidate/core";
-import { required, email, minLength } from "@vuelidate/validators";
+import {required, email, minLength} from "@vuelidate/validators";
 
 export default {
   name: "Registration",
   setup() {
-    return { v$: useVuelidate() };
+    return {v$: useVuelidate()};
   },
   data() {
     return {
@@ -89,10 +89,10 @@ export default {
   },
   validations() {
     return {
-      email: { required, email },
-      password: { required, minLength: minLength(6) },
-      name: { required, minLength: minLength(4) },
-      agree: { checked: (v) => v },
+      email: {required, email},
+      password: {required, minLength: minLength(6)},
+      name: {required, minLength: minLength(4)},
+      agree: {checked: (v) => v},
     };
   },
   methods: {
@@ -110,8 +110,9 @@ export default {
 
       try {
         await this.$store.dispatch("registration", formData);
-        this.$router.push({ name: "Home" });
-      } catch (e) {}
+        this.$router.push({name: "Home"});
+      } catch (e) {
+      }
     },
 
     printError($name, $param) {
@@ -121,10 +122,10 @@ export default {
         return "Введите корректный email";
       } else if ($name === "minLength") {
         return (
-          "Минимальная длина должна быть " +
-          $param.min +
-          " символов, а сейчас: " +
-          this.password.length
+            "Минимальная длина должна быть " +
+            $param.min +
+            " символов, а сейчас: " +
+            this.password.length
         );
       }
     },
