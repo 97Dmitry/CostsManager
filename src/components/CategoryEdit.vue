@@ -5,7 +5,7 @@
         <h4>Редактировать</h4>
       </div>
 
-      <form v-on:submit.prevent="submitHandler">
+      <form class="form" v-on:submit.prevent="submitHandler">
         <div class="input-field">
           <select ref="select" v-model="current" id="select">
             <option v-for="c of categories" :key="c.id" :value="c.id">
@@ -123,7 +123,7 @@ export default {
     this.select = M.FormSelect.init(this.$refs.select);
     M.updateTextFields();
   },
-  destroyed() {
+  unmounted() {
     if (this.select && this.select.destroy) {
       this.select.destroy();
     }
