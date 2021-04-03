@@ -6,6 +6,7 @@ import { createApp } from "vue";
 import messagePlugin from "@/utils/message.plugin.js";
 import Loader from "@/components/app/Loader.vue";
 import parseDatePlugin from "@/utils/parseDate.plugin";
+import tooltipDirective from "@/directives/tooltip.directive";
 import "materialize-css/dist/js/materialize.min";
 import "./registerServiceWorker";
 import "firebase/auth";
@@ -29,9 +30,10 @@ firebase.auth().onAuthStateChanged(() => {
     app = createApp(App);
     app.use(store);
     app.use(router);
-    app.component("Loader", Loader);
     app.use(messagePlugin);
     app.use(parseDatePlugin);
+    app.component("Loader", Loader);
+    app.directive("tooltip", tooltipDirective);
     app.mount("#app");
   }
 });

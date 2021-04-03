@@ -1,16 +1,20 @@
 <template>
   <div>
-    <Loader v-if="loading"/>
+    <Loader v-if="loading" />
     <div class="app-main-layout" v-else>
-      <Navbar v-on:clickDown="isOpen = !isOpen"/>
-      <Sidebar v-model="isOpen"/>
+      <Navbar v-on:clickDown="isOpen = !isOpen" />
+      <Sidebar v-model="isOpen" />
       <main class="app-content" :class="{ full: !isOpen }">
         <div class="app-page">
-          <router-view/>
+          <router-view />
         </div>
       </main>
       <div class="fixed-action-btn">
-        <router-link class="btn-floating btn-large blue" to="record">
+        <router-link
+          class="btn-floating btn-large blue"
+          to="record"
+          v-tooltip="'Создать новую запись'"
+        >
           <i class="large material-icons">add</i>
         </router-link>
       </div>
@@ -28,7 +32,7 @@ export default {
   data() {
     return {
       isOpen: true,
-      loading: true
+      loading: true,
     };
   },
   components: {
@@ -38,10 +42,10 @@ export default {
   },
   async mounted() {
     if (!Object.keys(this.$store.getters.info).length) {
-      await this.$store.dispatch('fetchInfo')
+      await this.$store.dispatch("fetchInfo");
     }
-    this.loading = false
-  }
+    this.loading = false;
+  },
 };
 </script>
 
