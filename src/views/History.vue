@@ -44,7 +44,6 @@ export default {
         typeText: record.type === "income" ? "Доход" : "Расход",
       };
     });
-    console.log(this.records.length);
     this.loading = false;
   },
 };
