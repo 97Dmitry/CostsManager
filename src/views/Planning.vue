@@ -60,7 +60,6 @@ export default {
       const tooltip = `${
         tooltipValue < 0 ? "Превышение на:" : "Осталось:"
       } ${Math.abs(tooltipValue)} Р`;
-      debugger;
       return {
         ...category,
         progressPercent,

@@ -5,8 +5,6 @@
 </template>
 
 <script>
-import messages from "@/utils/messages";
-
 export default {
   name: "EmptyLayout",
   computed: {

@@ -5,7 +5,7 @@
     </div>
 
     <Loader v-if="loading" />
-    <p class="center" v-else-if="categories.langth">
+    <p class="center" v-else-if="!categories.length">
       Категорий пока нет.
       <router-link to="/categories">Добавьте категорию</router-link>
     </p>

@@ -25,7 +25,6 @@
 <script>
 import Navbar from "@/components/app/Navbar";
 import Sidebar from "@/components/app/Sidebar";
-import Loader from "@/components/app/Loader";
 
 export default {
   name: "MainLayout",
@@ -36,7 +35,6 @@ export default {
     };
   },
   components: {
-    Loader,
     Navbar,
     Sidebar,
   },
@@ -45,6 +43,17 @@ export default {
       await this.$store.dispatch("fetchInfo");
     }
     this.loading = false;
+  },
+  computed: {
+    error() {
+      return this.$store.getters.error;
+    },
+  },
+  watch: {
+    error(fbError) {
+      console.log(fbError);
+      this.$error(messages[fbError.code] || "Что то пошло не так :(");
+    },
   },
 };
 </script>
