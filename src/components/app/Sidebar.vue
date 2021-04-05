@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       Links: [
-        { title: this.$localizeFilter("ScoreTitle"), toGo: "/", exact: true },
+        { title: this.$localizeFilter("BillTitle"), toGo: "/", exact: true },
         {
           title: this.$localizeFilter("HistoryTitle"),
           toGo: "history",
