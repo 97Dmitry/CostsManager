@@ -3,7 +3,7 @@
     <Loader v-if="loading" />
     <div class="app-main-layout" v-else>
       <Navbar v-on:clickDown="isOpen = !isOpen" />
-      <Sidebar v-model="isOpen" />
+      <Sidebar v-model="isOpen" :key="locale" />
       <main class="app-content" :class="{ full: !isOpen }">
         <div class="app-page">
           <router-view />
@@ -45,11 +45,17 @@ export default {
     this.loading = false;
   },
   computed: {
+    locale() {
+      return this.$store.getters.info.locale;
+    },
     error() {
       return this.$store.getters.error;
     },
   },
   watch: {
+    // locale() {
+    //   console.log("local")
+    // },
     error(fbError) {
       console.log(fbError);
       this.$error(messages[fbError.code] || "Что то пошло не так :(");

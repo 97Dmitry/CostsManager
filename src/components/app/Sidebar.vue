@@ -28,11 +28,27 @@ export default {
   data() {
     return {
       Links: [
-        { title: "Счет", toGo: "/", exact: true },
-        { title: "История", toGo: "history", exact: true },
-        { title: "Планирование", toGo: "planning", exact: true },
-        { title: "Новая запись", toGo: "record", exact: true },
-        { title: "Категории", toGo: "categories", exact: true },
+        { title: this.$localizeFilter("ScoreTitle"), toGo: "/", exact: true },
+        {
+          title: this.$localizeFilter("HistoryTitle"),
+          toGo: "history",
+          exact: true,
+        },
+        {
+          title: this.$localizeFilter("PlanningTitle"),
+          toGo: "planning",
+          exact: true,
+        },
+        {
+          title: this.$localizeFilter("RecordTitle"),
+          toGo: "record",
+          exact: true,
+        },
+        {
+          title: this.$localizeFilter("CategoriesTitle"),
+          toGo: "categories",
+          exact: true,
+        },
       ],
     };
   },

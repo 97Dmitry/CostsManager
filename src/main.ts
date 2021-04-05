@@ -11,6 +11,7 @@ import "materialize-css/dist/js/materialize.min";
 import "./registerServiceWorker";
 import "firebase/auth";
 import "firebase/database";
+import localization from "@/localization/localization.js";
 
 const firebaseConfig = {
   apiKey: process.env.VUE_APP_API_KEY,
@@ -28,12 +29,13 @@ let app;
 firebase.auth().onAuthStateChanged(() => {
   if (!app) {
     app = createApp(App);
-    app.use(store);
-    app.use(router);
-    app.use(messagePlugin);
-    app.use(parseDatePlugin);
-    app.component("Loader", Loader);
-    app.directive("tooltip", tooltipDirective);
-    app.mount("#app");
   }
+  app.use(store);
+  app.use(router);
+  app.use(messagePlugin);
+  app.use(parseDatePlugin);
+  app.use(localization);
+  app.component("Loader", Loader);
+  app.directive("tooltip", tooltipDirective);
+  app.mount("#app");
 });
