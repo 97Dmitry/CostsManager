@@ -8,6 +8,7 @@
         <small
           class="helper-text invalid"
           v-for="(error, index) of v$.email.$errors"
+          :key="index"
         >
           {{ printError(error.$validator, error.$params) }}</small
         >
@@ -18,6 +19,7 @@
         <small
           class="helper-text invalid"
           v-for="(error, index) of v$.password.$errors"
+          :key="index"
         >
           {{ printError(error.$validator, error.$params) }}</small
         >

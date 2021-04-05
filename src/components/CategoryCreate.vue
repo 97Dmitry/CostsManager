@@ -17,6 +17,7 @@
           <span
             v-for="(error, index) of v$.title.$errors"
             class="helper-text invalid"
+            :key="index"
           >
             {{ printError(error.$validator, error.$params) }}
           </span>
@@ -33,6 +34,7 @@
           <span
             v-for="(error, index) of v$.limit.$errors"
             class="helper-text invalid"
+            :key="index"
           >
             {{ printError(error.$validator, error.$params) }}
           </span>

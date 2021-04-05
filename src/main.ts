@@ -2,7 +2,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import firebase from "firebase/app";
-import { createApp } from "vue";
+import {createApp} from "vue";
 import messagePlugin from "@/utils/message.plugin.js";
 import Loader from "@/components/app/Loader.vue";
 import parseDatePlugin from "@/utils/parseDate.plugin";
@@ -13,7 +13,7 @@ import "firebase/auth";
 import "firebase/database";
 import localization from "@/localization/localization.js";
 
-const firebaseConfig = {
+const firebaseConfig = ({
   apiKey: process.env.VUE_APP_API_KEY,
   authDomain: process.env.VUE_APP_AUTH_DOMAIN,
   projectId: process.env.VUE_APP_PROJECT_ID,
@@ -21,21 +21,22 @@ const firebaseConfig = {
   messagingSenderId: process.env.VUE_APP_MESSAGING_SENDE_ID,
   appId: process.env.VUE_APP_APP_ID,
   measurementId: process.env.VUE_APP_MEASUREMENT_ID,
-};
+});
 
 firebase.initializeApp(firebaseConfig);
 
 let app;
 firebase.auth().onAuthStateChanged(() => {
-  if (!app) {
-    app = createApp(App);
+    if (!app) {
+      app = createApp(App);
+    }
+    app.use(store);
+    app.use(router);
+    app.use(messagePlugin);
+    app.use(parseDatePlugin);
+    app.use(localization);
+    app.component("Loader", Loader);
+    app.directive("tooltip", tooltipDirective);
+    app.mount("#app");
   }
-  app.use(store);
-  app.use(router);
-  app.use(messagePlugin);
-  app.use(parseDatePlugin);
-  app.use(localization);
-  app.component("Loader", Loader);
-  app.directive("tooltip", tooltipDirective);
-  app.mount("#app");
-});
+);
